@@ -1,9 +1,9 @@
 const jwt = require("jsonwebtoken");
-const prisma = require("../prisma/client");
+const {prisma} = require("../../prisma/client");
 
 const authMiddleware = async (req, res, next) => {
     try {
-        const authHeader = req.headers.authorization;
+        /* const authHeader = req.headers.authorization;
 
         if (!authHeader || !authHeader.startsWith("Bearer ")) {
             return res.status(401).json({
@@ -12,8 +12,17 @@ const authMiddleware = async (req, res, next) => {
                 error: "UNAUTHORIZED",
             });
         }
+ */
+        // const token = authHeader.split(" ")[1];
+        const token = req.cookies?.token;
 
-        const token = authHeader.split(" ")[1];
+        if(!token){
+            return res.status(401).json({
+                success:false,
+                data:null,
+                error:"UNAUTHORIZED",
+            })
+        }
 
         let payload;
         try {
