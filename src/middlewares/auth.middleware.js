@@ -27,6 +27,7 @@ const authMiddleware = async (req, res, next) => {
         let payload;
         try {
             payload = jwt.verify(token, process.env.JWT_SECRET);
+            console.log("Payload in Authentication check middleware is :-> ",payload);
         } catch {
             return res.status(401).json({
                 success: false,

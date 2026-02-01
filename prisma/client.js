@@ -5,4 +5,6 @@ const connectionString = `${process.env.DATABASE_URL}`
 
 const adapter = new PrismaPg({ connectionString })
 const prisma = new PrismaClient({ adapter })
+
+console.log("DATABASE_URL 🚀🚀 =", process.env.DATABASE_URL)
 module.exports = {prisma};

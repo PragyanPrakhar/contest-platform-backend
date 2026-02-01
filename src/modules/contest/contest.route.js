@@ -2,6 +2,7 @@ const express = require("express");
 const ContestController = require("./contest.controller.js");
 const authMiddleware = require("../../middlewares/auth.middleware.js");
 const validate = require("../../utils/validate.js");
+const isAuthorized=require("../../middlewares/isAuthorized.middleware.js");
 const {
     createContestSchema,
     updateContestSchema,
@@ -9,9 +10,8 @@ const {
 
 const contestRouter = express.Router();
 
-/**
- * PUBLIC / AUTHENTICATED ROUTES
- */
+
+//  PUBLIC / AUTHENTICATED ROUTES
 
 // Get all contests
 contestRouter.get("/", authMiddleware, ContestController.getAllContests);
@@ -19,14 +19,13 @@ contestRouter.get("/", authMiddleware, ContestController.getAllContests);
 // Get contest by ID
 contestRouter.get("/:contestId", authMiddleware, ContestController.getContestById);
 
-/**
- * CREATOR ONLY ROUTES
- */
+//  CREATOR ONLY ROUTES
+
 
 // Create contest
 contestRouter.post(
     "/",
-    authMiddleware,
+    [authMiddleware,isAuthorized],
     validate(createContestSchema),
     ContestController.createContest,
 );
@@ -34,12 +33,12 @@ contestRouter.post(
 // Update contest
 contestRouter.put(
     "/:contestId",
-    authMiddleware,
+    [authMiddleware,isAuthorized],
     validate(updateContestSchema),
     ContestController.updateContest,
 );
 
 // Delete contest
-contestRouter.delete("/:contestId", authMiddleware, ContestController.deleteContest);
+contestRouter.delete("/:contestId", [authMiddleware,isAuthorized], ContestController.deleteContest);
 
 module.exports = contestRouter;

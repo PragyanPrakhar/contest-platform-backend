@@ -37,4 +37,5 @@ const updateContestSchema = z
     );
 module.exports = {
     createContestSchema,
+    updateContestSchema
 };

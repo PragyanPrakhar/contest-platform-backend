@@ -32,13 +32,13 @@ class AuthService {
             { expiresIn: "7d" },
         );
 
-        res.cookie("token",token,{
+        /* res.cookie("token",token,{
             httpOnly:true,
             sameSite:"strict",
             secure:true,
             expires: new Date(Date.now() + 8 * 3600000),
         });
-
+ */
 
         return {
             user: {

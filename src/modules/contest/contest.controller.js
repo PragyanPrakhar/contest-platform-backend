@@ -46,6 +46,7 @@ class ContestController {
     static async getContestById(req, res) {
         try {
             const { contestId } = req.params;
+            console.log("Contest Id in update contest is :-> ",contestId);
 
             const contest = await ContestService.getContestById(contestId);
 
@@ -69,11 +70,12 @@ class ContestController {
     static async updateContest(req, res) {
         try {
             const { contestId } = req.params;
+            console.log("Contest Id in update contest is :-> ",contestId);
 
             const updatedContest = await ContestService.updateContest(
                 contestId,
                 req.user.id, // auth check
-                req.validatedBody,
+                req.validatedBody
             );
 
             return res.status(200).json({
@@ -102,7 +104,7 @@ class ContestController {
 
             const result = await ContestService.deleteContest(
                 contestId,
-                req.user.id, // 🔐 auth check
+                req.user.id // 🔐 auth check
             );
 
             return res.status(200).json({

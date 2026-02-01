@@ -1,5 +1,5 @@
 const isAuthorized = (req, res, next) => {
-    if (req.user.role !== "CREATOR") {
+    if (req.user.role !== "creator") {
         return res.status(403).json({
             success: false,
             error: "FORBIDDEN",
