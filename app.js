@@ -3,9 +3,10 @@ const cors = require("cors");
 require("dotenv").config();
 
 const authRoutes = require("./src/modules/auth/auth.route");
-const contestRoutes=require("./src/modules/contest/contest.route");
-const contestRegistrationRoutes=require("./src/modules/contestRegistration/contestRegistration.route");
-const dsaQuestionRoutes=require("./src/modules/dsa/dsa.route");
+const contestRoutes = require("./src/modules/contest/contest.route");
+const contestRegistrationRoutes = require("./src/modules/contestRegistration/contestRegistration.route");
+const dsaQuestionRoutes = require("./src/modules/dsa/dsa.route");
+const mcqQuestionRoutes = require("./src/modules/mcq/mcq.route");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -23,7 +24,8 @@ app.use(
 
 // Routes
 app.use("/auth", authRoutes);
-app.use("/contest",contestRoutes);
-app.use("/contestRegistration",contestRegistrationRoutes);
-app.use("/dsa-question",dsaQuestionRoutes);
+app.use("/contest", contestRoutes);
+app.use("/contestRegistration", contestRegistrationRoutes);
+app.use("/dsa-question", dsaQuestionRoutes);
+app.use("/mcq-question", mcqQuestionRoutes);
 module.exports = app;
