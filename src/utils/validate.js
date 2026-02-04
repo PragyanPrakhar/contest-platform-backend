@@ -1,4 +1,4 @@
-const validate = (schema) => (req, res, next) => {
+        const validate = (schema) => (req, res, next) => {
     console.log("Request Body is :-> ",req.body);
     const result = schema.safeParse(req.body);
 

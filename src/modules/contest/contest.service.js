@@ -72,6 +72,9 @@ class ContestService {
             where: { id: contestId },
         });
 
+        console.log("Before Updation the contest startTime is " + contest.startTime + "and" + contest.endTime);
+
+
         if (!contest) {
             throw new Error("CONTEST_NOT_FOUND");
         }
@@ -89,6 +92,8 @@ class ContestService {
             where: { id: contestId },
             data: updateData,
         });
+
+        console.log("Contest after updating the contest Id is :-> " + contest.startTime + "and" + contest.endTime);
 
         return updatedContest;
     }

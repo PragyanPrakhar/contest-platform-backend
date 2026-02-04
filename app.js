@@ -7,6 +7,8 @@ const contestRoutes = require("./src/modules/contest/contest.route");
 const contestRegistrationRoutes = require("./src/modules/contestRegistration/contestRegistration.route");
 const dsaQuestionRoutes = require("./src/modules/dsa/dsa.route");
 const mcqQuestionRoutes = require("./src/modules/mcq/mcq.route");
+const mcqSubmissionRoutes=require("./src/modules/submissions/mcqSubmission/mcqSubmission.route");
+const dsaSubmissionRoutes = require("./src/modules/submissions/dsaSubmission/dsaSubmission.route");
 const cookieParser = require("cookie-parser");
 
 const app = express();
@@ -28,4 +30,6 @@ app.use("/contest", contestRoutes);
 app.use("/contestRegistration", contestRegistrationRoutes);
 app.use("/dsa-question", dsaQuestionRoutes);
 app.use("/mcq-question", mcqQuestionRoutes);
+app.use("/mcq-submission",mcqSubmissionRoutes);
+app.use("/dsa-submission",dsaSubmissionRoutes);
 module.exports = app;

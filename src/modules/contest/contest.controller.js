@@ -72,12 +72,14 @@ class ContestController {
             const { contestId } = req.params;
             console.log("Contest Id in update contest is :-> ",contestId);
 
+
             const updatedContest = await ContestService.updateContest(
                 contestId,
                 req.user.id, // auth check
                 req.validatedBody
             );
 
+            console.log("The contest of name " + updatedContest.title + " has been updated successfully");
             return res.status(200).json({
                 success: true,
                 data: updatedContest,
