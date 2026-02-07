@@ -1,14 +1,33 @@
 const ContestRegistrationService = require("./contestRegistration.service");
-
+const sendMail = require("../../utils/sendMail.js");
+const {
+    contestRegistrationHTML,
+    contestRegistrationText,
+} = require("../../email-templates/contest-registration.mail.js");
 class ContestRegistrationController {
     static async register(req, res) {
         try {
             const contestId = req.validatedParams.contestId;
             const userId = req.user.id;
-
+            console.log(
+                "Req validated Params while contesrt registration is :-> ",
+                req.validatedParams,
+            );
             const registration = await ContestRegistrationService.registerUser({
                 userId,
                 contestId,
+            });
+
+            console.log(
+                "Registration while contest registration is :-> ",
+                registration,
+            );
+
+            await sendMail({
+                to: req.user.email,
+                subject: "Registered Successfully 🏁",
+                text: contestRegistrationText,
+                html: contestRegistrationHTML,
             });
 
             res.status(201).json({
@@ -16,6 +35,7 @@ class ContestRegistrationController {
                 data: registration,
                 error: null,
             });
+            
         } catch (err) {
             res.status(400).json({
                 success: false,
@@ -29,7 +49,7 @@ class ContestRegistrationController {
         try {
             const registrations =
                 await ContestRegistrationService.getUserRegistrations(
-                    req.user.id
+                    req.user.id,
                 );
 
             res.json({

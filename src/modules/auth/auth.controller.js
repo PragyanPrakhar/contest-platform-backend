@@ -1,5 +1,9 @@
+const sendMail = require("../../utils/sendMail.js");
 const AuthService = require("./auth.service.js");
-
+const {
+    signUpHtml,
+    signUpText,
+} = require("../../email-templates/signup.mail.js");
 class AuthController {
     static async signup(req, res) {
         try {
@@ -10,8 +14,17 @@ class AuthController {
                 httpOnly: true,
                 sameSite: "strict",
                 secure: process.env.NODE_ENV === "production",
-                maxAge: 7 * 24 * 60 * 60 * 1000
+                maxAge: 7 * 24 * 60 * 60 * 1000,
             });
+
+            // For sending mail on Sign - Up
+            await sendMail({
+                to: result.user.email,
+                subject: "Welcome to Contest Platform 🎉",
+                text: signUpText,
+                html: signUpHtml,
+            });
+
             res.status(201).json({
                 success: true,
                 data: result.user,
@@ -25,7 +38,7 @@ class AuthController {
                 data: null,
                 error: err.message,
             });
-            console.log("Error in Sign Up is :-> ",err);
+            console.log("Error in Sign Up is :-> ", err);
         }
     }
 
@@ -36,7 +49,7 @@ class AuthController {
                 httpOnly: true,
                 sameSite: "strict",
                 secure: process.env.NODE_ENV === "production",
-                maxAge: 7 * 24 * 60 * 60 * 1000
+                maxAge: 7 * 24 * 60 * 60 * 1000,
             });
             res.status(200).json({
                 success: true,
@@ -50,7 +63,7 @@ class AuthController {
                 data: null,
                 error: err.message,
             });
-            console.log("Error in log in is :-> ",err);
+            console.log("Error in log in is :-> ", err);
         }
     }
 }

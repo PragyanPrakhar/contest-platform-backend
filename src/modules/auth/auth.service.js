@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
-const jwt=require("jsonwebtoken");
-const {prisma} = require("../../../prisma/client.js");
+const jwt = require("jsonwebtoken");
+const { prisma } = require("../../../prisma/client.js");
 const { success } = require("zod");
 
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -31,14 +31,6 @@ class AuthService {
             JWT_SECRET,
             { expiresIn: "7d" },
         );
-
-        /* res.cookie("token",token,{
-            httpOnly:true,
-            sameSite:"strict",
-            secure:true,
-            expires: new Date(Date.now() + 8 * 3600000),
-        });
- */
 
         return {
             user: {
@@ -84,4 +76,4 @@ class AuthService {
     }
 }
 
-module.exports=AuthService;
+module.exports = AuthService;

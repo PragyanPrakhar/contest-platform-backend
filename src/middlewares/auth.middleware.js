@@ -41,6 +41,8 @@ const authMiddleware = async (req, res, next) => {
             select: {
                 id: true,
                 role: true,
+                email:true,
+                name:true,
             },
         });
 
@@ -52,7 +54,7 @@ const authMiddleware = async (req, res, next) => {
             });
         }
 
-        req.user = user; // { id, role }
+        req.user = user; // { id, role, name, email }
         next();
     } catch (err) {
         return res.status(500).json({
