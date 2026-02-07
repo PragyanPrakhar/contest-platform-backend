@@ -11,10 +11,13 @@ class DsaSubmissionService {
 
         const now = new Date();
 
+        // Grace time (to tackle the network delays)
+        const GRACE_PERIOD_MS = 30 * 1000; // 30 seconds
         if (now < problem.contest.startTime)
             throw new Error("CONTEST_NOT_STARTED");
 
-        if (now > problem.contest.endTime) throw new Error("CONTEST_ENDED");
+        if (now > problem.contest.endTime + GRACE_PERIOD_MS)
+            throw new Error("CONTEST_ENDED");
 
         const registration = await prisma.contestRegistration.findUnique({
             where: {

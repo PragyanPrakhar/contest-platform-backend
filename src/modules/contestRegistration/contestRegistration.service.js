@@ -30,12 +30,12 @@ class ContestRegistrationService {
                         userId,
                         contestId,
                     },
-                }
+                },
             );
 
             console.log(
                 "Created ContestRegistration :-> ",
-                contestRegistration
+                contestRegistration,
             );
 
             return contestRegistration;
@@ -47,7 +47,7 @@ class ContestRegistrationService {
 
             console.log(
                 "THis is the error while creating contestRegistration :-> ",
-                err
+                err,
             );
             throw err;
         }
